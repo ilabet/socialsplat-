@@ -508,3 +508,10 @@ body {
 .hero-card {
   transition: transform 0.2s ease;
 }
+
+.profile-layout {
+  background-image: url('https://i.pinimg.com/1200x/36/f3/9c/36f39ca546b9a018a2a2092435d50a16.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
