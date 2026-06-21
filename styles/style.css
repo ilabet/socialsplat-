@@ -510,8 +510,10 @@ body {
 }
 
 .profile-layout {
-  background-image: url('https://i.pinimg.com/1200x/36/f3/9c/36f39ca546b9a018a2a2092435d50a16.jpg');
+  background-image: url('https://pinimg.com');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  min-height: 100%; /* Forces the background to span the full height */
+  overflow: hidden;  /* Keeps the background within the rounded borders */
 }
