@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUSH - Second Life Multi-Platform Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. HEADER SECTION (Inspired by Image Layout) -->
+  <header class="main-header">
+    <div class="logo">HUSH</div>
+    <nav class="nav-links">
+      <a href="#feed" class="active">Explore</a>
+      <a href="#events">Events</a>
+      <a href="#chatrooms">Chatrooms</a>
+      <a href="#store">Marketplace</a>
+      <a href="#profile">My Profile</a>
+    </nav>
+    <div class="header-actions">
+      <span class="currency-display">L$ 24,500</span>
+      <button class="btn-primary">Connect Viewer</button>
+    </div>
+  </header>
+
+  <main class="dashboard-container">
+    
+    <!-- 2. LIVE DASHBOARD HERO (TikTok Scroll / Three.js Preview Framework) -->
+    <section class="hero-scroll-section" id="feed">
+      <div class="hero-card">
+        <div class="media-container">
+          <div class="badge-overlay">Trending Collab</div>
+          <!-- Placeholder for Three.js / WebGL / Video Stream Mesh Renderer -->
+          <div class="mesh-renderer-placeholder">
+            <span class="visual-anchor">🤖 3D Mesh Preview Canvas</span>
+          </div>
+        </div>
+        <div class="card-details">
+          <h2>Futuristic Cybernetic Leg Pack</h2>
+          <p>By @BrielleDev • Mesh collaboration for Style3D & Blender artists.</p>
+          <div class="card-actions">
+            <button class="btn-round">❤️ 2.2k</button>
+            <button class="btn-round">💬 492</button>
+            <button class="btn-action-primary">Buy on Marketplace</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. MYSPACE-STYLE USER PROFILE SECTION (Highly Customizable) -->
+    <section class="profile-grid-section" id="profile" style="--user-theme-color: #ff66a3; --user-bg-banner: url('https://unsplash.com');">
+      
+      <!-- Custom User Banner -->
+      <div class="user-banner"></div>
+
+      <div class="profile-layout">
+        <!-- Left Column: Bio, Music, Badges -->
+        <aside class="profile-sidebar">
+          <div class="profile-avatar-container">
+            <div class="avatar-frame status-online">
+              <img src="https://unsplash.com" alt="Avatar">
+            </div>
+            <h3>Sabrina Vane</h3>
+            <p class="sl-username">@sabrina.resident</p>
+          </div>
+
+          <!-- Profile Custom Audio Player -->
+          <div class="profile-audio-player">
+            <p class="track-title">🎵 Now Playing: Cyber-Pink Beats.mp3</p>
+            <audio controls loop class="custom-audio-element">
+              <source src="#" type="audio/mpeg">
+            </audio>
+          </div>
+
+          <!-- Discord-Style Discord Badges Section -->
+          <div class="badge-section">
+            <h4>Badges</h4>
+            <div class="badge-grid">
+              <span class="badge badge-dev" title="App Developer">💻 Dev</span>
+              <span class="badge badge-staff" title="Second Life Staff">👑 SL Staff</span>
+              <span class="badge badge-verified" title="Verified Creator">✔️ Creator</span>
+              <span class="badge badge-dj" title="Club DJ">🎧 DJ</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Column: HUD Dashboard / Stats / Active Events -->
+        <div class="profile-main-content">
+          <div class="content-card hud-sync-panel">
+            <h4>Real-Time In-World HUD Status</h4>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>Energy</span><span>85%</span></div>
+              <div class="progress-container"><div class="progress-bar" style="width: 85%;"></div></div>
+            </div>
+            <div class="stat-bar-group">
+              <div class="stat-label"><span>Hygiene</span><span>40%</span></div>
+              <div class="progress-container"><div class="progress-bar alert-status" style="width: 40%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Timed Poll Component -->
+          <div class="content-card poll-card">
+            <h4>Next Venue Party Music Theme</h4>
+            <p class="poll-ends">Ends: June 25, 2026</p>
+            <div class="poll-options">
+              <button class="poll-option-btn">Synthwave (64%)</button>
+              <button class="poll-option-btn">Hyperpop (36%)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. MOBILE VIEWER INTERFACE EMBED (IMVU UI + Roblox Control Architecture) -->
+    <section class="mobile-viewer-simulation">
+      <div class="mobile-device-frame">
+        <div class="viewer-render-area">
+          
+          <!-- Top IMVU Style Navigation Layer -->
+          <div class="imvu-top-layer">
+            <button class="imvu-btn">💬 Chat</button>
+            <button class="imvu-btn active">👗 Wardrobe</button>
+            <button class="imvu-btn">🌍 Explore</button>
+          </div>
+
+          <!-- Roblox Style Touch Controls Layer -->
+          <div class="roblox-controls-layer">
+            <div class="roblox-joystick" id="leftJoystick">
+              <div class="joystick-thumb"></div>
+            </div>
+            <button class="roblox-jump-btn">▲</button>
+          </div>
+
+          <!-- Open Inventory Overlay Grid -->
+          <div class="wardrobe-overlay-drawer">
+            <h5>My Inventory</h5>
+            <div class="inventory-grid">
+              <div class="inventory-item active">Mesh Body</div>
+              <div class="inventory-item">Cyber Hair</div>
+              <div class="inventory-item">Pink Top</div>
+              <div class="inventory-item">Platform Boots</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
