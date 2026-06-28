@@ -15,6 +15,29 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false }
 });
 
+// --- MODULE 4: EVENTS CORE ENDPOINTS ---
+app.get('/api/events', async (req, res) => {
+  try {
+    const events = await pool.query('SELECT e.*, p.username FROM platform_events e JOIN profiles p ON e.creator_id = p.profile_id ORDER BY e.slt_start_time ASC');
+    res.json(events.rows);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+
+// --- MODULE 4: MARKETPLACE MERCHANDISE ENDPOINTS ---
+app.get('/api/marketplace/items', async (req, res) => {
+  try {
+    const items = await pool.query(`
+      SELECT i.*, s.shop_name, s.bg_media_url, s.bg_music_url 
+      FROM catalog_items i 
+      JOIN merchant_shops s ON i.shop_id = s.shop_id 
+      ORDER BY i.created_at DESC
+    `);
+    res.json(items.rows);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+
 // Setup Combined Server Architecture Pipes
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
