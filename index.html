@@ -160,6 +160,35 @@
             </div>
         </section>
 
+
+                <!-- 5. CHATROOM ENGINE WORKSPACE COMPONENT (WebSocket Integration) -->
+        <section class="content-card" id="chatrooms" style="background:#0c001a; border:1px solid #ff00ff; padding:20px; border-radius:8px; margin-top:30px; color:#fff;">
+            <h3 style="color:#00ffff; text-shadow:0 0 5px #00ffff; margin-top:0;">Splat Instant Communications</h3>
+            <div style="display:flex; gap:20px; min-height:300px;">
+                
+                <!-- Left Chat Sidebar: Room Navigation Selector Menu -->
+                <div id="chat-rooms-list" style="width:30%; border-right:1px solid #222; padding-right:15px; display:flex; flex-direction:column; gap:10px;">
+                    <h5 style="margin:0 0 10px 0; color:#888;">Public Channels</h5>
+                    <!-- Loaded dynamically via Fetch methods -->
+                </div>
+
+                <!-- Right Chat Sidebar: Chat feed stream execution channel panels -->
+                <div style="width:70%; display:flex; flex-direction:column; justify-content:space-between;">
+                    <div id="chat-messages-stream" style="flex-grow:1; max-height:240px; overflow-y:auto; padding:10px; background:#050505; border:1px solid #222; border-radius:4px; margin-bottom:15px; display:flex; flex-direction:column; gap:8px;">
+                        <p style="color:#444;">Select an open public channel channel on the left map toolbar to engage conversations.</p>
+                    </div>
+                    
+                    <!-- Text Message Submission Entry Frame Input Bar -->
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" id="chat-input-field" placeholder="Send dark net broadcast packet stream..." style="flex-grow:1; padding:10px; background:#111; border:1px solid #333; color:#fff; border-radius:4px;" onkeypress="if(event.key === 'Enter') dispatchSocketMessage()">
+                        <button onclick="dispatchSocketMessage()" style="background:#ff00ff; color:#fff; border:none; padding:0 20px; font-weight:bold; cursor:pointer; border-radius:4px;">Transmit</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
         <!-- 4. MOBILE VIEWER INTERFACE EMBED -->
         <section class="mobile-viewer-simulation">
             <div class="mobile-device-frame">
@@ -269,7 +298,105 @@
             switchProfileTab('posts');
         }
 
+        // --- STEP 3: SOCKET.IO WEBSOCKET SYSTEM INSTANT UTILITIES ---
+        let socketConnection = null;
+        let activeRoomId = null;
 
+        function initializeSocketEngine() {
+            // Establish global connection loop out to live operational Render infrastructure
+            socketConnection = io(BACKEND_URL);
+
+            socketConnection.on('connect', () => {
+                console.log("WebSocket engine hooked securely up into Render channels!");
+                loadPublicChannelsList();
+            });
+
+            // Catching incoming system broadcasts from standard websocket channels instantly
+            socketConnection.on('receive_message', (msgPacket) => {
+                if(msgPacket.room_id === activeRoomId) {
+                    appendSingleMessageToStream(msgPacket);
+                }
+            });
+        }
+
+        async function loadPublicChannelsList() {
+            const listDiv = document.getElementById('chat-rooms-list');
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/chatrooms`);
+                const rooms = await response.json();
+                
+                listDiv.innerHTML = '<h5 style="margin:0 0 10px 0; color:#888;">Public Channels</h5>';
+                rooms.forEach(rm => {
+                    const btn = document.createElement('button');
+                    btn.innerText = `# ${rm.room_name}`;
+                    btn.style = "background:#111; color:#fff; border:1px solid #222; padding:8px; text-align:left; cursor:pointer; border-radius:4px; font-weight:bold;";
+                    btn.onclick = () => switchActiveWebSocketRoom(rm.room_id, btn);
+                    listDiv.appendChild(btn);
+                });
+            } catch(e) { console.error("Could not trace chatroom indices: ", e); }
+        }
+
+        async function switchActiveWebSocketRoom(roomId, elementNode) {
+            activeRoomId = roomId;
+            
+            // Clean visual styling nodes off navigation selector states
+            document.querySelectorAll('#chat-rooms-list button').forEach(b => b.style.borderColor = '#222');
+            if(elementNode) elementNode.style.borderColor = '#ff00ff';
+
+            const stream = document.getElementById('chat-messages-stream');
+            stream.innerHTML = '<p style="color:#555;">Downloading secure ledger history logs...</p>';
+
+            // Inform backend node tracking pools to switch channels
+            socketConnection.emit('join_room', roomId);
+
+            try {
+                const res = await fetch(`${BACKEND_URL}/api/chatrooms/${roomId}/messages`);
+                const history = await res.json();
+                stream.innerHTML = ''; // Wipe history state clear
+                
+                history.forEach(appendSingleMessageToStream);
+            } catch(err) { console.error(err); }
+        }
+
+        function appendSingleMessageToStream(msg) {
+            const stream = document.getElementById('chat-messages-stream');
+            const wrapper = document.createElement('div');
+            wrapper.style = "background:#111; padding:6px 10px; border-radius:4px; border-left:3px solid #00ffff; font-size:13px;";
+            wrapper.innerHTML = `
+                <strong style="color:#ff00ff;">${msg.profile_name}</strong> 
+                <span style="color:#555; font-size:11px; margin-left:5px;">@${msg.username}</span>
+                <p style="margin:4px 0 0 0; color:#fff; font-family:sans-serif;">${msg.message_text}</p>
+            `;
+            stream.appendChild(wrapper);
+            stream.scrollTop = stream.scrollHeight; // Force scrolling positioning engine updates
+        }
+
+        function dispatchSocketMessage() {
+            const input = document.getElementById('chat-input-field');
+            const text = input.value.trim();
+            if(!text || !activeRoomId) return;
+
+            const session = localStorage.getItem('socialsplat_user');
+            if(!session) return alert("You must sign in via Connect Account to broadcast network chat packets.");
+
+            const user = JSON.parse(session);
+
+            const msgPayload = {
+                room_id: activeRoomId,
+                sender_id: user.profile_id,
+                message_text: text
+            };
+
+            // Emit instant event packet frame right across the active socket pipe line structure
+            socketConnection.emit('send_message', msgPayload);
+            input.value = ''; // Flush processing input line container empty
+        }
+
+        // Initialize immediate execution loops on page load contexts
+        initializeSocketEngine();
+
+
+    
     <!-- 5. APPLICATION SCRIPTS -->
     <script src="app.js" defer></script>
     <script>
