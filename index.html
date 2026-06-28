@@ -7,9 +7,18 @@
     <link rel="stylesheet" href="styles/style.css">
     <style>
         /* Alignment fixes for the identity navbar controls */
-        .header-actions { display: flex; gap: 15px; align-items: center; }
-        .nav-logo-link { text-decoration: none; color: inherit; }
-        #auth-modal { font-family: sans-serif; }
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .nav-logo-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        #auth-modal {
+            font-family: sans-serif;
+        }
     </style>
 </head>
 <body>
@@ -29,7 +38,6 @@
         </nav>
         <div class="header-actions">
             <span class="currency-display">L$ 24,500</span>
-            
             <div id="auth-nav-controls" style="display: flex; gap: 10px; align-items: center;">
                 <button id="login-trigger-btn" onclick="openAuthModal()" class="btn-primary" style="cursor:pointer;">Connect Account</button>
                 <div id="user-status-badge" style="display:none; font-weight:bold; color:#00ffff; font-size:14px;"></div>
@@ -37,7 +45,7 @@
         </div>
     </header>
 
-    <!-- NEW: Pop-Up Authentication Overlay Container Panel -->
+    <!-- POP-UP AUTHENTICATION OVERLAY PANEL -->
     <div id="auth-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center;">
         <div style="background: #111; border: 2px solid #ff00ff; padding: 30px; width: 320px; border-radius: 8px; text-align: center; color: #fff;">
             <h3 style="margin-top: 0; color: #fff;">SocialSplat Identity Connect</h3>
@@ -51,13 +59,14 @@
                 <input type="text" id="sl-username-field" placeholder="Second Life Username (e.g. John Resident)" style="width: 90%; padding: 8px; background: #222; border: 1px solid #333; color: #fff; margin-bottom: 15px; border-radius:4px;">
                 <button onclick="submitAuthData()" style="background:#ff00ff; color:#fff; border:none; width:100%; padding:10px; font-weight:bold; cursor:pointer; border-radius:4px;">Complete Link</button>
             </div>
-            
             <button onclick="closeAuthModal()" style="background:none; color:#666; border:none; margin-top:15px; cursor:pointer; font-size:12px;">Cancel</button>
         </div>
     </div>
 
+    <!-- MAIN CONTENT CONTAINER -->
     <main class="dashboard-container">
-        <!-- 2. LIVE DASHBOARD HERO (TikTok Scroll / Three.js Preview Framework) -->
+        
+        <!-- 2. LIVE DASHBOARD HERO -->
         <section class="hero-scroll-section" id="feed">
             <div class="hero-card">
                 <div class="media-container">
@@ -67,8 +76,8 @@
                     </div>
                 </div>
                 <div class="card-details">
-                    <h2> Earth N Fire Grillz </h2>
-                    <p>By @ukiyostore • Mesh creation available on Marketplace! </p>
+                    <h2>Earth N Fire Grillz</h2>
+                    <p>By @ukiyostore • Mesh creation available on Marketplace!</p>
                     <div class="card-actions">
                         <button class="btn-round">❤️ 2.2k</button>
                         <button class="btn-round">💬 492</button>
@@ -88,7 +97,6 @@
                         <div class="avatar-frame status-online">
                             <img src="https://i.pinimg.com/736x/c0/21/b2/c021b21a32d7fe510d561754f8fcc1c4.jpg" alt="Avatar">
                         </div>
-                        <!-- ID Hooks added to make fields change dynamically based on login -->
                         <h3 id="profile-display-name">Ziploc™</h3>
                         <p class="sl-username" id="profile-username-handle">@ziplocbagg.resident</p>
                     </div>
@@ -112,18 +120,18 @@
                 <!-- Right Column: HUD Dashboard / Stats / Active Events -->
                 <div class="profile-main-content">
                     <div class="content-card hud-sync-panel">
-                        <h4> Real-Time Life Splat Hud Status</h4>
+                        <h4>Real-Time Life Splat Hud Status</h4>
                         <div class="stat-bar-group">
-                            <div class="stat-label"><span> Recent Skill: THC Cultivation 🍃 </span><span>85%</span></div>
+                            <div class="stat-label"><span>Recent Skill: THC Cultivation 🍃</span><span>85%</span></div>
                             <div class="progress-container"><div class="progress-bar" style="width: 85%;"></div></div>
                         </div>
                         <div class="stat-bar-group">
-                            <div class="stat-label"><span> Recent Skill: Cooking 🍳 </span><span>40%</span></div>
+                            <div class="stat-label"><span>Recent Skill: Cooking 🍳</span><span>40%</span></div>
                             <div class="progress-container"><div class="progress-bar alert-status" style="width: 40%;"></div></div>
                         </div>
                     </div>
                     <div class="content-card poll-card">
-                        <h4>Next Party Theme </h4>
+                        <h4>Next Party Theme</h4>
                         <p class="poll-ends">Ends: June 25, 2026</p>
                         <div class="poll-options">
                             <button class="poll-option-btn">Y2K/90s(64%)</button>
@@ -154,8 +162,8 @@
                         <div class="inventory-grid">
                             <div class="inventory-item active">Body</div>
                             <div class="inventory-item">Hair</div>
-                            <div class="inventory-item"> SocialSplat - Default Top</div>
-                            <div class="inventory-item"> SocialSplat - Default Boots</div>
+                            <div class="inventory-item">SocialSplat - Default Top</div>
+                            <div class="inventory-item">SocialSplat - Default Boots</div>
                         </div>
                     </div>
                 </div>
@@ -163,15 +171,21 @@
         </section>
     </main>
 
+    <!-- 5. APPLICATION SCRIPTS -->
     <script src="app.js" defer></script>
-    
-    
     <script>
         // Update this link with your live Render server address when deployed!
-        const BACKEND_URL = "https://onrender.com"; 
-
+        const BACKEND_URL = "https://onrender.com";
         let currentGoogleUser = null;
 
         // Clears application state and forces route back to main explore timeline feed
         function handleLogoClick(event) {
             window.location.hash = 'feed';
+            console.log("App state flushed. Routed to home #feed.");
+        }
+
+        function openAuthModal() {
+            document.getElementById('auth-modal').style.display = 'flex';
+        }
+
+        function closeAuthModal() {
